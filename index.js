@@ -15,3 +15,22 @@ const nextCharForNumberString = str =>
 const result = nextCharForNumberString('   64');
 
 console.log(result);
+
+const moneyToFloat = str =>
+    Box(str.replace(/\$/g, ''))
+    .map(r => parseFloat(r))
+
+const percentToFloat = str =>
+    Box(str.replace(/\%/g, ''))
+    .map(replaced => parseFloat(replaced))
+    .map(number => number * 0.01)
+
+const applyDiscount = (price, discount) => 
+    moneyToFloat(price)
+    .fold(cost => 
+        percentToFloat(discount)
+        .fold(savings => cost - cost * savings))
+
+const result2 = applyDiscount('$5.00', '20%');
+
+console.log(result2);
